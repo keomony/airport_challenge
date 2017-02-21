@@ -1,5 +1,3 @@
-require './lib/airport'
-
 describe Airport do
 
   it "should respond to land method with an argument" do
