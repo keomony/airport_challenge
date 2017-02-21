@@ -7,6 +7,7 @@ class Airport
     raise "Cann't take off plane: weather is stormy" if stormy?
   end
 
+  private 
   def stormy?
     rand_number = rand(10)
     if rand_number < 2
