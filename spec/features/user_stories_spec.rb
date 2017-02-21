@@ -21,6 +21,7 @@ describe "user stories" do
       expect{ airport.take_off(plane) }.not_to raise_error
     end
 
+
   end
 
   context "when weather is stormy" do
@@ -40,6 +41,22 @@ describe "user stories" do
     # I want to prevent landing when weather is stormy
     it "prevent planes to land" do
       expect{ airport.land(plane) }.to raise_error "Cann't land plane: weather is stormy"
+    end
+
+  end
+
+  context "when the airport is full" do
+    before do
+      allow(airport).to receive(:stormy?).and_return(false)
+    end
+    # As an air traffic controller
+    # To ensure safety
+    # I want to prevent landing when the airport is full
+    it "prevent planes to land" do
+      10.times do
+        airport.land(plane)
+      end
+      expect{airport.land(plane)}.to raise_error "Cann't land plane: airport is full"
     end
 
   end

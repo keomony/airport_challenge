@@ -22,4 +22,17 @@ describe Airport do
     end
   end
 
+  context "when it's full" do
+
+    it "raises an error if instructed to land the plane" do
+      plane = double(:Plane)
+      allow(airport).to receive(:stormy?).and_return(false)
+      10.times do
+        airport.land(plane)
+      end
+      expect{airport.land(plane)}.to raise_error "Cann't land plane: airport is full"
+    end
+
+  end
+
 end
