@@ -1,6 +1,6 @@
 describe "user stories" do
 
-  let(:airport) { Airport.new }
+  let(:airport) { Airport.new(10) }
   let(:plane) { Plane.new }
 
   context "when weather is not stormy" do
