@@ -15,6 +15,11 @@ describe Airport do
       allow(airport).to receive(:stormy?).and_return(true)
       expect{airport.take_off(plane)}.to raise_error "Cann't take off plane: weather is stormy"
     end
+    it "raises an error if instructed to land the plane" do
+      plane = double(:Plane)
+      allow(airport).to receive(:stormy?).and_return(true)
+      expect{airport.land(plane)}.to raise_error "Cann't land plane: weather is stormy"
+    end
   end
 
 end
