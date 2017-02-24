@@ -1,3 +1,5 @@
+require_relative 'weather_reporter'
+
 class Airport
 
   def initialize(capacity)
@@ -17,7 +19,7 @@ class Airport
 
   private
   def stormy?
-    rand(10) < 2
+    WeatherReporter.stormy?
   end
 
   def full?
