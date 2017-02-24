@@ -1,5 +1,8 @@
 describe "user stories" do
 
+  # As the system designer
+  # So that the software can be used for many different airports
+  # I would like a default airport capacity that can be overridden as appropriate
   let(:airport) { Airport.new(10) }
   let(:plane) { Plane.new }
 
