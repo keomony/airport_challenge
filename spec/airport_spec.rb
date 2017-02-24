@@ -13,26 +13,28 @@ describe Airport do
   end
 
   context "when stormy" do
+    before do
+      allow(weather_reporter_klass).to receive(:stormy?).and_return(true)
+    end
 
     it "raises an error if asked to take off the plane" do
-      allow(weather_reporter_klass).to receive(:stormy?).and_return(true)
       expect{airport.take_off(plane)}.to raise_error "Cann't take off plane: weather is stormy"
     end
     it "raises an error if instructed to land the plane" do
-      allow(weather_reporter_klass).to receive(:stormy?).and_return(true)
       expect{airport.land(plane)}.to raise_error "Cann't land plane: weather is stormy"
     end
 
   end
 
   context "when not stormy" do
+    before do
+      allow(weather_reporter_klass).to receive(:stormy?).and_return(false)
+    end
 
     it "instructs a plane to take off" do
-      allow(weather_reporter_klass).to receive(:stormy?).and_return(false)
       expect{airport.take_off(plane)}.not_to raise_error
     end
     it "instructs a plane to land" do
-      allow(weather_reporter_klass).to receive(:stormy?).and_return(false)
       expect{airport.land(plane)}.not_to raise_error
     end
 
