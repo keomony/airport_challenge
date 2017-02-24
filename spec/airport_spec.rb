@@ -32,8 +32,15 @@ describe Airport do
     end
 
     it "instructs a plane to take off" do
+      airport.land(plane)
       expect{airport.take_off(plane)}.not_to raise_error
     end
+    it "raises an error if plane is not at the airport and tries to take off" do
+      other_airport = described_class.new(10, weather_reporter_klass)
+      other_airport.land(plane)
+      expect{airport.take_off(plane)}.to raise_error "Cann't take off plane: plane not at this airport"
+    end
+
     it "instructs a plane to land" do
       expect{airport.land(plane)}.not_to raise_error
     end

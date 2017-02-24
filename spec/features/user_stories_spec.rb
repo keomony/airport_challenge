@@ -19,14 +19,15 @@ describe "user stories" do
     # So I can get passengers on the way to their destination
     # I want to instruct a plane to take off from an airport and confirm that it is no longer in the airport
     it "so planes take off from the airport, instruct a plane to take off" do
+      airport.land(plane)
       expect{ airport.take_off(plane) }.not_to raise_error
     end
 
     # As an air traffic controller
     # So that I can ensure safe take off procedures
     # I want planes only to take off from the airport they are at
-    xit "takes off planes only from where they are at " do
-      airport_2 = Airport.new(10, WeatherReporter.new)
+    it "takes off planes only from where they are at " do
+      airport_2 = Airport.new(10, weather_reporter_klass)
       airport_2.land(plane)
       expect{airport.take_off(plane)}.to raise_error "Cann't take off plane: plane not at this airport"
     end
