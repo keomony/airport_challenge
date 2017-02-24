@@ -1,12 +1,12 @@
 describe "user stories" do
 
-  let(:airport) { Airport.new(10) }
+  let(:airport) { Airport.new(10, weather_reporter_klass) }
   let(:plane) { Plane.new }
-  let(:weather_reporter) { WeatherReporter }
+  let(:weather_reporter_klass) { WeatherReporter.new }
 
   context "when not stormy" do
     before do
-      allow_any_instance_of(weather_reporter).to receive(:stormy?).and_return(false)
+      allow(weather_reporter_klass).to receive(:stormy?).and_return(false)
     end
     # As an air traffic controller
     # So I can get passengers to a destination
@@ -27,7 +27,7 @@ describe "user stories" do
 
   context "when stormy" do
     before do
-      allow_any_instance_of(weather_reporter).to receive(:stormy?).and_return(true)
+      allow(weather_reporter_klass).to receive(:stormy?).and_return(true)
     end
 
     # As an air traffic controller
@@ -48,7 +48,7 @@ describe "user stories" do
 
   context "when the airport is full" do
     before do
-      allow_any_instance_of(weather_reporter).to receive(:stormy?).and_return(false)
+      allow(weather_reporter_klass).to receive(:stormy?).and_return(false)
     end
     # As an air traffic controller
     # To ensure safety

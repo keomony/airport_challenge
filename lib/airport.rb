@@ -2,8 +2,9 @@ require_relative 'weather_reporter'
 
 class Airport
 
-  def initialize(capacity)
+  def initialize(capacity, weather_reporter_klass)
     @capacity = capacity
+    @weather_reporter = weather_reporter_klass
     @planes = []
   end
 
@@ -19,7 +20,7 @@ class Airport
 
   private
   def stormy?
-    WeatherReporter.new.stormy?
+    @weather_reporter.stormy?
   end
 
   def full?
