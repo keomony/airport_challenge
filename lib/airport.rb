@@ -19,7 +19,7 @@ class Airport
 
   private
   def stormy?
-    WeatherReporter.stormy?
+    WeatherReporter.new.stormy?
   end
 
   def full?

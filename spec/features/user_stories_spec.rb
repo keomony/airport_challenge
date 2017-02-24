@@ -1,14 +1,12 @@
 describe "user stories" do
 
-  # As the system designer
-  # So that the software can be used for many different airports
-  # I would like a default airport capacity that can be overridden as appropriate
   let(:airport) { Airport.new(10) }
   let(:plane) { Plane.new }
+  let(:weather_reporter) { WeatherReporter }
 
-  context "when weather is not stormy" do
+  context "when not stormy" do
     before do
-      allow(airport).to receive(:stormy?).and_return(false)
+      allow_any_instance_of(weather_reporter).to receive(:stormy?).and_return(false)
     end
     # As an air traffic controller
     # So I can get passengers to a destination
@@ -27,9 +25,9 @@ describe "user stories" do
 
   end
 
-  context "when weather is stormy" do
+  context "when stormy" do
     before do
-      allow(airport).to receive(:stormy?).and_return(true)
+      allow_any_instance_of(weather_reporter).to receive(:stormy?).and_return(true)
     end
 
     # As an air traffic controller
@@ -50,7 +48,7 @@ describe "user stories" do
 
   context "when the airport is full" do
     before do
-      allow(airport).to receive(:stormy?).and_return(false)
+      allow_any_instance_of(weather_reporter).to receive(:stormy?).and_return(false)
     end
     # As an air traffic controller
     # To ensure safety
