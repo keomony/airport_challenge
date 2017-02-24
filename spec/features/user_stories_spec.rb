@@ -22,6 +22,14 @@ describe "user stories" do
       expect{ airport.take_off(plane) }.not_to raise_error
     end
 
+    # As an air traffic controller
+    # So that I can ensure safe take off procedures
+    # I want planes only to take off from the airport they are at
+    xit "takes off planes only from where they are at " do
+      airport_2 = Airport.new(10, WeatherReporter.new)
+      airport_2.land(plane)
+      expect{airport.take_off(plane)}.to raise_error "Cann't take off plane: plane not at this airport"
+    end
 
   end
 
@@ -61,5 +69,8 @@ describe "user stories" do
     end
 
   end
+
+
+
 
 end
