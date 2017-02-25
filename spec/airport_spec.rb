@@ -1,6 +1,6 @@
 describe Airport do
 
-  subject(:airport) { described_class.new(10, weather_reporter_klass) }
+  subject(:airport) { described_class.new(weather_reporter_klass, 10) }
   let(:plane) {double(:Plane)}
   let(:weather_reporter_klass) { double(:WeatherReporter) }
 
@@ -36,7 +36,7 @@ describe Airport do
       expect{airport.take_off(plane)}.not_to raise_error
     end
     it "raises an error if plane is not at the airport and tries to take off" do
-      other_airport = described_class.new(10, weather_reporter_klass)
+      other_airport = described_class.new(weather_reporter_klass, 10)
       other_airport.land(plane)
       expect{airport.take_off(plane)}.to raise_error "Cann't take off plane: plane not at this airport"
     end
@@ -54,7 +54,18 @@ describe Airport do
       10.times do
         airport.land(plane)
       end
-      expect{airport.land(plane)}.to raise_error "Cann't land plane: airport is full"
+      expect{airport.land(plane)}.to raise_error "Cann't land plane: airport full"
+    end
+
+  end
+
+  context "defaults" do
+    # subject(:default_airport) {described_class.new(weather_reporter_klass)}
+    it "has a default capacity" do
+      default_airport = described_class.new(weather_reporter_klass)
+      allow(weather_reporter_klass).to receive(:stormy?).and_return(false)
+      described_class::DEFAULT_CAPACITY.times {default_airport.land(plane)}
+      expect{default_airport.land(plane)}.to raise_error "Cann't land plane: airport full"
     end
 
   end

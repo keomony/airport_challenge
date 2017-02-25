@@ -1,8 +1,8 @@
 require_relative 'weather_reporter'
 
 class Airport
-
-  def initialize(capacity, weather_reporter_klass)
+  DEFAULT_CAPACITY = 10
+  def initialize(weather_reporter_klass, capacity = DEFAULT_CAPACITY)
     @capacity = capacity
     @weather_reporter = weather_reporter_klass
     @planes = []
@@ -10,7 +10,7 @@ class Airport
 
   def land(plane)
     raise "Cann't land plane: weather is stormy" if stormy?
-    raise "Cann't land plane: airport is full" if full?
+    raise "Cann't land plane: airport full" if full?
     @planes << plane
   end
 
