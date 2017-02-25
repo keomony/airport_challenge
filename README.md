@@ -72,6 +72,10 @@ As an air traffic controller
 So the system is consistent and correctly reports plane status and location
 I want to ensure a plane that is not flying cannot land and must be in the airport
 
+As an air traffic controller
+So the system is consistent and correctly reports plane status and location
+I want to ensure a plane that has taken off from an airport is no longer in that airport
+
 ```
 
 Your task is to test drive the creation of a set of classes/modules to satisfy all the above user stories. You will need to use a random number generator to set the weather (it is normally sunny but on rare occasions it may be stormy). In your tests, you'll need to use a stub to override random weather to ensure consistent test behaviour.
