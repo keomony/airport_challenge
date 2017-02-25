@@ -26,12 +26,14 @@ class Airport
   end
 
   private
+  attr_reader :capacity, :weather_reporter
+
   def stormy?
-    @weather_reporter.stormy?
+    weather_reporter.stormy?
   end
 
   def full?
-    @capacity <= @planes.length
+    capacity <= @planes.length
   end
 
   def at_airport?(plane)
