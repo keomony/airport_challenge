@@ -48,14 +48,10 @@ describe "user stories" do
     # So the system is consistent and correctly reports plane status and location
     # I want to ensure a flying plane cannot take off and cannot be in the airport
     it "flying planes cannot take off" do
-      airport.land(plane)
-      flying_plane = airport.take_off(plane)
-      expect{flying_plane.take_off}.to raise_error "Plane cann't take off: plane already flying"
+      expect{plane.take_off}.to raise_error "Plane cann't take off: plane already flying"
     end
     it "flying planes cann't be in an airport" do
-      airport.land(plane)
-      flying_plane = airport.take_off(plane)
-      expect{flying_plane.airport}.to raise_error "Plane cann't be at an airport: plane already flying"
+      expect{plane.airport}.to raise_error "Plane cann't be at an airport: plane already flying"
     end
 
     # As an air traffic controller
@@ -63,10 +59,11 @@ describe "user stories" do
     # I want to ensure a plane that is not flying cannot land and must be in the airport
     it "non-flying planes cann't land" do
       airport.land(plane)
-      expect{plane.land}.to raise_error "Plane cann't land: plane already landed"
+      expect{plane.land(airport)}.to raise_error "Plane cann't land: plane already landed"
     end
-    xit "non-flying planes must be in an airport" do
-
+    it "non-flying planes must be in an airport" do
+      airport.land(plane)
+      expect(plane.airport).not_to be nil
     end
 
   end

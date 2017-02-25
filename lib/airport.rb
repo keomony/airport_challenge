@@ -11,13 +11,14 @@ class Airport
   def land(plane)
     raise "Cann't land plane: weather is stormy" if stormy?
     raise "Cann't land plane: airport full" if full?
-    plane.land
+    plane.land(self)
     @planes << plane
   end
 
   def take_off(plane)
     raise "Cann't take off plane: weather is stormy" if stormy?
     raise "Cann't take off plane: plane not at this airport" unless at_airport?(plane)
+    plane.take_off
     plane
   end
 

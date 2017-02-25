@@ -1,7 +1,7 @@
 describe Airport do
 
   subject(:airport) { described_class.new(weather_reporter_klass, 10) }
-  let(:plane) {double(:Plane, land: nil)}
+  let(:plane) {double(:Plane, land: nil, take_off: nil)}
   let(:weather_reporter_klass) { double(:WeatherReporter) }
 
   it "should respond to land method with an argument" do
@@ -33,7 +33,8 @@ describe Airport do
 
     it "instructs a plane to take off" do
       airport.land(plane)
-      expect{airport.take_off(plane)}.not_to raise_error
+      expect(plane).to receive(:take_off)
+      airport.take_off(plane)
     end
     it "returns the plane that took off" do
       airport.land(plane)
@@ -56,7 +57,8 @@ describe Airport do
 
     it "raises an error if instructed to land the plane" do
       allow(weather_reporter_klass).to receive(:stormy?).and_return(false)
-      10.times do
+      described_class::DEFAULT_CAPACITY.times do
+        the_plane = double(:Plane, land: nil)
         airport.land(plane)
       end
       expect{airport.land(plane)}.to raise_error "Cann't land plane: airport full"
@@ -69,7 +71,10 @@ describe Airport do
     it "has a default capacity" do
       default_airport = described_class.new(weather_reporter_klass)
       allow(weather_reporter_klass).to receive(:stormy?).and_return(false)
-      described_class::DEFAULT_CAPACITY.times {default_airport.land(plane)}
+      described_class::DEFAULT_CAPACITY.times do
+        the_plane = double(:Plane, land: nil)
+        default_airport.land(the_plane)
+      end
       expect{default_airport.land(plane)}.to raise_error "Cann't land plane: airport full"
     end
 
