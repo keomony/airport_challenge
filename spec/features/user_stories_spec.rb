@@ -37,7 +37,10 @@ describe "user stories" do
     # I would like a default airport capacity that can be overridden as appropriate
     it "so planes can not land when airport full" do
       default_airport = Airport.new(weather_reporter_klass)
-      Airport::DEFAULT_CAPACITY.times {default_airport.land(plane)}
+      Airport::DEFAULT_CAPACITY.times do
+        the_plane = Plane.new
+        default_airport.land(the_plane)
+      end
       expect{default_airport.land(plane)}.to raise_error "Cann't land plane: airport full"
     end
 
@@ -49,10 +52,21 @@ describe "user stories" do
       flying_plane = airport.take_off(plane)
       expect{flying_plane.take_off}.to raise_error "Plane cann't take off: plane already flying"
     end
-    it "flying plane cann't be in an airport" do
+    it "flying planes cann't be in an airport" do
       airport.land(plane)
       flying_plane = airport.take_off(plane)
       expect{flying_plane.airport}.to raise_error "Plane cann't be at an airport: plane already flying"
+    end
+
+    # As an air traffic controller
+    # So the system is consistent and correctly reports plane status and location
+    # I want to ensure a plane that is not flying cannot land and must be in the airport
+    it "non-flying planes cann't land" do
+      airport.land(plane)
+      expect{plane.land}.to raise_error "Plane cann't land: plane already landed"
+    end
+    xit "non-flying planes must be in an airport" do
+
     end
 
   end
@@ -86,8 +100,9 @@ describe "user stories" do
     # To ensure safety
     # I want to prevent landing when the airport is full
     it "prevent planes to land" do
-      10.times do
-        airport.land(plane)
+      Airport::DEFAULT_CAPACITY.times do
+        the_plane = Plane.new
+        airport.land(the_plane)
       end
       expect{airport.land(plane)}.to raise_error "Cann't land plane: airport full"
     end

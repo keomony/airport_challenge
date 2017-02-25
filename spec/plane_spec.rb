@@ -9,10 +9,22 @@ describe Plane do
     end
   end
 
+  describe "#land" do
+    it { is_expected.to respond_to(:land)}
+    it "raises an error if already landed" do
+      plane.land
+      expect{plane.land}.to raise_error "Plane cann't land: plane already landed"
+    end
+  end
+
+
   describe "#airport" do
     it { is_expected.to respond_to(:airport)}
     it "raises an error when already flying" do
       expect{plane.airport}.to raise_error "Plane cann't be at an airport: plane already flying"
     end
   end
+
+
+
 end

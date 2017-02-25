@@ -1,7 +1,7 @@
 describe Airport do
 
   subject(:airport) { described_class.new(weather_reporter_klass, 10) }
-  let(:plane) {double(:Plane)}
+  let(:plane) {double(:Plane, land: nil)}
   let(:weather_reporter_klass) { double(:WeatherReporter) }
 
   it "should respond to land method with an argument" do
@@ -46,7 +46,8 @@ describe Airport do
     end
 
     it "instructs a plane to land" do
-      expect{airport.land(plane)}.not_to raise_error
+      expect(plane).to receive(:land)
+      airport.land(plane)
     end
 
   end
