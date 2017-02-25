@@ -9,7 +9,7 @@ class Plane
   end
 
   def land(airport)
-    raise "Plane cann't land: plane already landed" unless flying
+    raise "Plane cann't land: plane already landed" if landed
     @flying = false
     @airport = airport
   end
@@ -21,5 +21,9 @@ class Plane
 
   private
   attr_reader :flying
+
+  def landed
+    !flying
+  end
 
 end
