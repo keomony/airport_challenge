@@ -21,7 +21,7 @@ class Airport
     raise "Cann't take off plane: weather is stormy" if stormy?
     raise "Cann't take off plane: plane not at this airport" unless at_airport?(plane)
     plane.take_off
-    planes.pop
+    remove_plane(plane)
     plane
   end
 
@@ -42,5 +42,9 @@ class Airport
 
   def add_plane(plane)
     planes << plane
+  end
+
+  def remove_plane(plane)
+    planes.pop
   end
 end
